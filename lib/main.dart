@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:islami_app/home_page.dart';
+import 'package:islami_app/screens/ahdeth_screen/ahadeth_screen.dart';
+import 'package:islami_app/screens/home_screen/home_screen.dart';
+import 'package:islami_app/screens/quran_screen/quran_screen.dart';
+import 'package:islami_app/screens/radio_screen/radio_screen.dart';
+import 'package:islami_app/screens/sebha_screen/sebha_screen.dart';
+import 'package:islami_app/screens/splash_scraeen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +19,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        HomePage.routeName: (context) => const HomePage(),
+        SplashScreen.routeName: (_) => const SplashScreen(),
+        HomeScreen.routeName: (_) => const HomeScreen(),
+        HadithScreen.routeName: (_) => const HadithScreen(),
+        SebhaScreen.routeName: (_) => const SebhaScreen(),
+        QuranScreen.routeName: (_) => const QuranScreen(),
+        RadioScreen.routeName: (_) => const RadioScreen(),
       },
-      initialRoute: HomePage.routeName,
+      initialRoute: SplashScreen.routeName,
     );
   }
 }
