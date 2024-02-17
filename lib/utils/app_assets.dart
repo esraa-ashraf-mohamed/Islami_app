@@ -8,6 +8,5 @@ abstract class AppAssets {
   static const String background = 'assets/images/background.png';
   static const String hadithLogo = 'assets/images/hadith.png';
   static const String radioLogo = 'assets/images/radioLogo.png';
-  static const String bodySebha = 'assets/images/body_of_seb7a.png';
-  static const String headSebha = 'assets/images/head_of_seb7a.png';
+  static const String sebha = 'assets/images/sebha.png';
 }
