@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/utils/app_assets.dart';
 import 'package:islami_app/utils/app_colors.dart';
+import 'package:islami_app/utils/app_constants.dart';
 import 'package:islami_app/utils/theme.dart';
 
 class QuranScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class QuranScreen extends StatelessWidget {
       children: [
         Expanded(
             flex: 3, child: Center(child: Image.asset(AppAssets.quranLogo))),
-        SizedBox(
+        const SizedBox(
           height: 4,
         ),
         Expanded(
@@ -79,20 +80,20 @@ class QuranScreen extends StatelessWidget {
 
   ListView buildListView() {
     return ListView.builder(
-      itemCount: 70,
+      itemCount: suraNames.length,
       itemBuilder: (context, index) {
-        return const Row(
+        return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
                 child: Text(
-              'Sura Name',
+              suraNames[index],
               textAlign: TextAlign.center,
               style: AppTheme.regularTitleTextStyle,
             )),
             Expanded(
                 child: Text(
-              'Sura Name',
+              '${versesNumber[index]}',
               textAlign: TextAlign.center,
               style: AppTheme.regularTitleTextStyle,
             ))
