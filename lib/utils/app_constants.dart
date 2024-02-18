@@ -3,19 +3,21 @@ import 'package:islami_app/utils/app_assets.dart';
 import 'package:islami_app/utils/app_colors.dart';
 import 'package:islami_app/utils/theme.dart';
 
-typedef onTap = void Function(int index);
+typedef OnTap = void Function(int index);
 
 int currentIndex = 0;
+late String text;
 
-AppBar buildAppBar() {
+AppBar buildAppBar(text) {
   return AppBar(
     elevation: 0,
     backgroundColor: AppColors.transparent,
-    title: const Text(
-      'Islami',
+    title: Text(
+      text,
       style: AppTheme.appBarTextStyle,
     ),
     centerTitle: true,
+    iconTheme: IconThemeData(color: AppColors.lightBlack),
   );
 }
 
@@ -23,17 +25,17 @@ Widget buildBottomNavigationBar({onTap}) => Theme(
       data: ThemeData(canvasColor: AppColors.orange),
       child: BottomNavigationBar(
         items: [
-          buildBottomNavigationBarItem(AppAssets.ic_quran, 'quran'),
+          buildBottomNavigationBarItem(AppAssets.icQuran, 'quran'),
           buildBottomNavigationBarItem(
-            AppAssets.ic_ahadith,
+            AppAssets.icHadith,
             'hadith',
           ),
           buildBottomNavigationBarItem(
-            AppAssets.ic_sebha,
+            AppAssets.icSebha,
             'sebha',
           ),
           buildBottomNavigationBarItem(
-            AppAssets.ic_radio,
+            AppAssets.icRadio,
             'radio',
           ),
         ],
@@ -167,6 +169,7 @@ List<String> suraNames = [
   "الفلق",
   "الناس"
 ];
+
 List<int> versesNumber = [
   7,
   286,

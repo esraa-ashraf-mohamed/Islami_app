@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/screens/quran_screen/quran_details.dart';
+import 'package:islami_app/screens/quran_screen/sura_details_args.dart';
 import 'package:islami_app/utils/app_assets.dart';
 import 'package:islami_app/utils/app_colors.dart';
 import 'package:islami_app/utils/app_constants.dart';
 import 'package:islami_app/utils/theme.dart';
 
 class QuranScreen extends StatelessWidget {
-  static const String routeName = 'quran';
-
   const QuranScreen({super.key});
 
   @override
@@ -82,22 +82,29 @@ class QuranScreen extends StatelessWidget {
     return ListView.builder(
       itemCount: suraNames.length,
       itemBuilder: (context, index) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-                child: Text(
-              suraNames[index],
-              textAlign: TextAlign.center,
-              style: AppTheme.regularTitleTextStyle,
-            )),
-            Expanded(
-                child: Text(
-              '${versesNumber[index]}',
-              textAlign: TextAlign.center,
-              style: AppTheme.regularTitleTextStyle,
-            ))
-          ],
+        return InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, QuranDetails.routeName,
+                arguments:
+                    SuraDetailsArgs(name: suraNames[index], index: index));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                  child: Text(
+                suraNames[index],
+                textAlign: TextAlign.center,
+                style: AppTheme.regularTitleTextStyle,
+              )),
+              Expanded(
+                  child: Text(
+                '${versesNumber[index]}',
+                textAlign: TextAlign.center,
+                style: AppTheme.regularTitleTextStyle,
+              ))
+            ],
+          ),
         );
       },
     );

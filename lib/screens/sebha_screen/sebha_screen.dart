@@ -6,7 +6,6 @@ import 'package:islami_app/utils/app_colors.dart';
 import 'package:islami_app/utils/theme.dart';
 
 class SebhaScreen extends StatefulWidget {
-  static const String routeName = 'sebha';
 
   const SebhaScreen({super.key});
 
