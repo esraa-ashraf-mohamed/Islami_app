@@ -28,15 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(
-                AppAssets.background,
-              ),
-              fit: BoxFit.fill)),
+      decoration: backgroundImage(),
       child: Scaffold(
         backgroundColor: AppColors.transparent,
-        appBar: buildAppBar(),
+        appBar: buildAppBar('Islami'),
         bottomNavigationBar: buildBottomNavigationBar(onTap: (index) {
           currentIndex = index;
           setState(() {});

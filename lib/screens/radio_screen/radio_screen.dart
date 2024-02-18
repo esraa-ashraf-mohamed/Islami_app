@@ -4,8 +4,6 @@ import 'package:islami_app/utils/app_colors.dart';
 import 'package:islami_app/utils/theme.dart';
 
 class RadioScreen extends StatelessWidget {
-  static const String routeName = 'radio';
-
   const RadioScreen({super.key});
 
   @override
