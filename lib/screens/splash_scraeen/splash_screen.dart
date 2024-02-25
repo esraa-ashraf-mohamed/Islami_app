@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/providers/locale_provider.dart';
 import 'package:islami_app/screens/home_screen/home_screen.dart';
-import 'package:islami_app/utils/app_assets.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = 'splash';
@@ -22,12 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<LocaleProvider>(context);
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Image.asset(
-          AppAssets.splash,
+          provider.splash,
           fit: BoxFit.fill,
         ),
       ),

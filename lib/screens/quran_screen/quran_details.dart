@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:islami_app/providers/locale_provider.dart';
 import 'package:islami_app/screens/quran_screen/sura_details_args.dart';
-import 'package:islami_app/utils/app_assets.dart';
-import 'package:islami_app/utils/app_constants.dart';
-import 'package:islami_app/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/app_colors.dart';
 
@@ -21,20 +20,23 @@ class _QuranDetailsState extends State<QuranDetails> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<LocaleProvider>(context);
     var args = ModalRoute.of(context)!.settings.arguments as SuraDetailsArgs;
     if (suraContent.isEmpty) {
       readFile(args.index);
     }
 
     return Container(
-      decoration: backgroundImage(),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(provider.mainBackground), fit: BoxFit.fill)),
       child: Scaffold(
-        appBar: buildAppBar(args.name),
+        appBar: AppBar(title: Text(args.name)),
         backgroundColor: AppColors.transparent,
         body: suraContent.isEmpty
             ? const Center(
                 child: CircularProgressIndicator(
-                color: AppColors.orange,
+                color: AppColors.primaryLight,
               ))
             : Container(
                 margin: EdgeInsets.symmetric(
@@ -43,14 +45,14 @@ class _QuranDetailsState extends State<QuranDetails> {
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.03,
                     horizontal: MediaQuery.of(context).size.width * 0.06),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                  color: AppColors.white,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                  color: provider.containerColor,
                 ),
                 child: ListView.builder(
                   itemBuilder: (context, index) => Text(
                     suraContent[index],
-                    style: AppTheme.regularTitleTextStyle,
+                    style: provider.regularContentTextStyle,
                     textDirection: TextDirection.rtl,
                   ),
                   itemCount: suraContent.length,
