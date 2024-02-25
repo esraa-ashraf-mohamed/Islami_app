@@ -1,45 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami_app/utils/app_assets.dart';
-import 'package:islami_app/utils/app_colors.dart';
-import 'package:islami_app/utils/theme.dart';
 
 typedef OnTap = void Function(int index);
 
 int currentIndex = 0;
 late String text;
 
-AppBar buildAppBar(text) {
-  return AppBar(
-    elevation: 0,
-    backgroundColor: AppColors.transparent,
-    title: Text(
-      text,
-      style: AppTheme.appBarTextStyle,
-    ),
-    centerTitle: true,
-    iconTheme: IconThemeData(color: AppColors.lightBlack),
-  );
-}
-
-Widget buildBottomNavigationBar({onTap}) => Theme(
-      data: ThemeData(canvasColor: AppColors.orange),
+Widget buildBottomNavigationBar({onTap, context}) => Theme(
+      data: Theme.of(context)
+          .copyWith(canvasColor: Theme.of(context).primaryColor),
       child: BottomNavigationBar(
         items: [
-          buildBottomNavigationBarItem(AppAssets.icQuran, 'quran'),
           buildBottomNavigationBarItem(
-            AppAssets.icHadith,
-            'hadith',
+              iconPath: AppAssets.icQuran,
+              label: AppLocalizations.of(context).quran),
+          buildBottomNavigationBarItem(
+            iconPath: AppAssets.icHadith,
+            label: AppLocalizations.of(context).hadith,
           ),
           buildBottomNavigationBarItem(
-            AppAssets.icSebha,
-            'sebha',
+            iconPath: AppAssets.icSebha,
+            label: AppLocalizations.of(context).sebha,
           ),
           buildBottomNavigationBarItem(
-            AppAssets.icRadio,
-            'radio',
+            iconPath: AppAssets.icRadio,
+            label: AppLocalizations.of(context).radio,
+          ),
+          buildBottomNavigationBarItem(
+            icon: Icons.settings,
+            label: AppLocalizations.of(context).settings,
           ),
         ],
-        selectedItemColor: AppColors.lightBlack,
         iconSize: 34,
         currentIndex: currentIndex,
         onTap: onTap,
@@ -47,9 +39,9 @@ Widget buildBottomNavigationBar({onTap}) => Theme(
     );
 
 BottomNavigationBarItem buildBottomNavigationBarItem(
-        String iconPath, String label) =>
+        {String? iconPath, IconData? icon, required String label}) =>
     BottomNavigationBarItem(
-      icon: ImageIcon(AssetImage(iconPath)),
+      icon: iconPath != null ? ImageIcon(AssetImage(iconPath)) : Icon(icon),
       label: label,
     );
 

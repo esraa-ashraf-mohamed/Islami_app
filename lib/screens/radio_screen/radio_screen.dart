@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami_app/utils/app_assets.dart';
 import 'package:islami_app/utils/app_colors.dart';
-import 'package:islami_app/utils/theme.dart';
+import 'package:provider/provider.dart';
 
-class RadioScreen extends StatelessWidget {
+import '../../providers/locale_provider.dart';
+
+class RadioScreen extends StatefulWidget {
   const RadioScreen({super.key});
 
   @override
+  State<RadioScreen> createState() => _RadioScreenState();
+}
+
+class _RadioScreenState extends State<RadioScreen> {
+  @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<LocaleProvider>(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(AppAssets.radioLogo),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 25.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25.0),
             child: Text(
-              'Radio Al-Quran Al-Karem',
-              style: AppTheme.mediumTitleTextStyle,
+              AppLocalizations.of(context).radioAlQuranAlkarem,
+              style: themeProvider.mediumTitleTextStyle,
             ),
           ),
           Row(
@@ -37,10 +46,13 @@ class RadioScreen extends StatelessWidget {
   }
 
   IconButton buildIcon({required IconData icon, double? size}) {
+    var themeProvider = Provider.of<LocaleProvider>(context);
     return IconButton(
       onPressed: () {},
       icon: Icon(icon),
-      color: AppColors.orange,
+      color: themeProvider.isLightModeEnabled
+          ? AppColors.primaryLight
+          : AppColors.yellow,
       iconSize: size,
     );
   }

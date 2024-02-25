@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami_app/screens/ahdeth_screen/hadith_details.dart';
 import 'package:islami_app/screens/ahdeth_screen/hadith_details_args.dart';
 import 'package:islami_app/utils/app_assets.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/locale_provider.dart';
 import '../../utils/app_colors.dart';
-import '../../utils/theme.dart';
 
 class HadithScreen extends StatefulWidget {
   static const String routeName = 'hadith';
@@ -35,32 +38,33 @@ class _HadithScreenState extends State<HadithScreen> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                buildTapContent(),
+                buildTapContent(context),
               ],
             ))
       ],
     );
   }
 
-  Widget buildTapContent() {
+  Widget buildTapContent(context) {
+    var themeProvider = Provider.of<LocaleProvider>(context);
     return Column(
       children: [
         Container(
           width: double.infinity,
-          color: AppColors.orange,
+          color: AppColors.primaryLight,
           height: 3,
         ),
         const SizedBox(
           height: 4,
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
               child: Text(
-                'Hadith',
+                AppLocalizations.of(context).hadithName,
                 textAlign: TextAlign.center,
-                style: AppTheme.mediumTitleTextStyle,
+                style: themeProvider.mediumTitleTextStyle,
               ),
             ),
           ],
@@ -69,7 +73,7 @@ class _HadithScreenState extends State<HadithScreen> {
           height: 4,
         ),
         Container(
-          color: AppColors.orange,
+          color: AppColors.primaryLight,
           height: 3,
           width: double.infinity,
         ),
@@ -78,7 +82,7 @@ class _HadithScreenState extends State<HadithScreen> {
             child: hadithDetails.isEmpty
                 ? const Center(
                     child: CircularProgressIndicator(
-                    color: AppColors.orange,
+                      color: AppColors.primaryLight,
                   ))
                 : buildListView())
       ],
@@ -89,6 +93,7 @@ class _HadithScreenState extends State<HadithScreen> {
     return ListView.builder(
       itemCount: hadithDetails.length,
       itemBuilder: (context, index) {
+        var themeProvider = Provider.of<LocaleProvider>(context);
         return InkWell(
           onTap: () {
             Navigator.pushNamed(context, HadithDetails.routeName,
@@ -97,9 +102,9 @@ class _HadithScreenState extends State<HadithScreen> {
                     content: hadithDetails[index].content));
           },
           child: Text(
-            '${hadithDetails[index].title}',
+            hadithDetails[index].title,
             textAlign: TextAlign.center,
-            style: AppTheme.regularTitleTextStyle,
+            style: themeProvider.regularTitleTextStyle,
           ),
         );
       },

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami_app/screens/quran_screen/quran_details.dart';
 import 'package:islami_app/screens/quran_screen/sura_details_args.dart';
 import 'package:islami_app/utils/app_assets.dart';
 import 'package:islami_app/utils/app_colors.dart';
 import 'package:islami_app/utils/app_constants.dart';
-import 'package:islami_app/utils/theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/locale_provider.dart';
 
 class QuranScreen extends StatelessWidget {
   const QuranScreen({super.key});
@@ -23,10 +26,10 @@ class QuranScreen extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                buildTapContent(),
+                buildTapContent(context),
                 Container(
                   width: 3,
-                  color: AppColors.orange,
+                  color: AppColors.primaryLight,
                   height: double.infinity,
                 )
               ],
@@ -35,32 +38,33 @@ class QuranScreen extends StatelessWidget {
     );
   }
 
-  Widget buildTapContent() {
+  Widget buildTapContent(context) {
+    var themeProvider = Provider.of<LocaleProvider>(context);
     return Column(
       children: [
         Container(
           width: double.infinity,
-          color: AppColors.orange,
+          color: AppColors.primaryLight,
           height: 3,
         ),
         const SizedBox(
           height: 4,
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
               child: Text(
-                'Sura Name',
+                AppLocalizations.of(context).suraName,
                 textAlign: TextAlign.center,
-                style: AppTheme.mediumTitleTextStyle,
+                style: themeProvider.mediumTitleTextStyle,
               ),
             ),
             Expanded(
               child: Text(
-                'Verses',
+                AppLocalizations.of(context).verses,
                 textAlign: TextAlign.center,
-                style: AppTheme.mediumTitleTextStyle,
+                style: themeProvider.mediumTitleTextStyle,
               ),
             )
           ],
@@ -69,7 +73,7 @@ class QuranScreen extends StatelessWidget {
           height: 4,
         ),
         Container(
-          color: AppColors.orange,
+          color: AppColors.primaryLight,
           height: 3,
           width: double.infinity,
         ),
@@ -82,6 +86,7 @@ class QuranScreen extends StatelessWidget {
     return ListView.builder(
       itemCount: suraNames.length,
       itemBuilder: (context, index) {
+        var themeProvider = Provider.of<LocaleProvider>(context);
         return InkWell(
           onTap: () {
             Navigator.pushNamed(context, QuranDetails.routeName,
@@ -93,15 +98,15 @@ class QuranScreen extends StatelessWidget {
             children: [
               Expanded(
                   child: Text(
-                suraNames[index],
+                    suraNames[index],
                 textAlign: TextAlign.center,
-                style: AppTheme.regularTitleTextStyle,
+                style: themeProvider.regularTitleTextStyle,
               )),
               Expanded(
                   child: Text(
-                '${versesNumber[index]}',
+                    '${versesNumber[index]}',
                 textAlign: TextAlign.center,
-                style: AppTheme.regularTitleTextStyle,
+                style: themeProvider.regularTitleTextStyle,
               ))
             ],
           ),

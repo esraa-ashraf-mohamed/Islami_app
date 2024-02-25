@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:islami_app/utils/app_assets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami_app/utils/app_colors.dart';
 import 'package:islami_app/utils/theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/locale_provider.dart';
 
 class SebhaScreen extends StatefulWidget {
-
   const SebhaScreen({super.key});
 
   @override
@@ -16,11 +18,16 @@ class SebhaScreen extends StatefulWidget {
 class _SebhaScreenState extends State<SebhaScreen> {
   int number = 0;
   double angle = 0.0;
-  List praises = ['Subhana Allah', 'Allah Akbar', 'Al-hamdulillah'];
   int index = 0;
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<LocaleProvider>(context);
+    List praises = [
+      AppLocalizations.of(context).subhanaAllah,
+      AppLocalizations.of(context).allahAkbar,
+      AppLocalizations.of(context).alHamidullah
+    ];
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,7 +37,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
             child: Transform.rotate(
               angle: angle * (pi / 180),
               child: Image.asset(
-                AppAssets.sebha,
+                themeProvider.sebha,
               ),
             ),
           ),
@@ -38,20 +45,23 @@ class _SebhaScreenState extends State<SebhaScreen> {
             flex: 3,
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 45.0, bottom: 25.0),
+                Padding(
+                  padding: const EdgeInsets.only(top: 45.0, bottom: 25.0),
                   child: Text(
-                    'Number of praises',
-                    style: AppTheme.mediumTitleTextStyle,
+                    AppLocalizations.of(context).numberOfPraises,
+                    style: themeProvider.mediumTitleTextStyle,
                   ),
                 ),
                 Container(
-                    decoration: const BoxDecoration(
-                        color: AppColors.orange,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    decoration: BoxDecoration(
+                        color: themeProvider.isLightModeEnabled
+                            ? AppColors.primaryLight
+                            : AppColors.darkBlue,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10))),
                     padding: const EdgeInsets.all(15),
-                    child:
-                        Text('$number', style: AppTheme.regularTitleTextStyle)),
+                    child: Text('$number',
+                        style: themeProvider.regularTitleTextStyle)),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -68,15 +78,16 @@ class _SebhaScreenState extends State<SebhaScreen> {
                   },
                   child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: const BoxDecoration(
-                          color: AppColors.orange,
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
+                      decoration: BoxDecoration(
+                          color: themeProvider.boxColor,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50))),
                       padding: const EdgeInsets.all(10),
                       child: Text('${praises[index]}',
-                          style: const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.white))),
+                          style: themeProvider.isLightModeEnabled
+                              ? AppTextStyle.mediumTitleTextStyle
+                              : AppTextStyle.mediumTitleDarkTextStyle
+                                  .copyWith(color: AppColors.lightBlack))),
                 ),
               ],
             ),
