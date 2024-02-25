@@ -1,0 +1,18 @@
+{
+  "title": "اسلامي",
+  "quran": "القرآن",
+  "hadith": "الحديث",
+  "sebha": "السبحة",
+  "radio": "الراديو",
+  "settings": "الاعدادات",
+  "hadithName": "اسم الحديث",
+  "suraName": "اسم السورة",
+  "verses": "عدد الايات",
+  "radioAlQuranAlkarem": "اذاعة القرآن الكريم",
+  "numberOfPraises": "عدد التسبيح",
+  "subhanaAllah": "سبحان الله",
+  "allahAkbar": "الله اكبر",
+  "alHamidullah": "الحمدلله",
+  "language": "اللغة",
+  "theme": "مظلم"
+}
